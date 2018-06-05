@@ -1,9 +1,9 @@
 from flask import render_template, flash  # redirect, url_for
 # from flask_login import login_user, logout_user
 from app import app
-from app.models.models import Post
-from app.models.forms import PostForm
-
+from app.models.models import Post, Question
+from app.models.forms import PostForm, QuestionsForm
+import json
 
 # @lm.user_loader
 # def load_user(id):
@@ -14,6 +14,33 @@ from app.models.forms import PostForm
 @app.route("/")
 def index():
     return render_template('index.html')
+
+
+@app.route('/<issn>', methods=('GET', 'POST'))
+def issn(issn):
+    form = QuestionsForm()
+    if form.validate_on_submit():
+
+        journal = Question.objects.get_or_404(issn=issn)
+
+        question = Question(
+            criterio1a=form.data['criterio1a'],
+            justifica1a=form.data['justifica1a'],
+            )
+
+        mdata = json.loads(question.to_json())
+
+        journal.update(**mdata)
+        flash(u'form salvo com sucesso!', 'success')
+    elif form.errors:
+        flash(u'Temos algum erro no formulario.', 'error')
+    journal = Question.objects.get_or_404(issn=issn)
+    context = {
+        'form': form,
+        'journal': journal,
+    }
+    # print(journal.title)
+    return render_template("issn.html", **context)
 
 
 @app.route('/home', methods=('GET', 'POST'))
@@ -33,7 +60,9 @@ def home():
         'form': form,
         'posts': posts,
     }
+    print(posts)
     return render_template("home.html", **context)
+
 
 # @app.route("/login", methods=["GET", "POST"])
 # def login():

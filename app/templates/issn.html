@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="starter-template">
+  <div class="container">
+    <h1 class="display-4">Fapesp</h1>
+    <p class="lead">Em virtude dos 20 anos do projeto SciELO a Fapesp estará elaborando uma avaliação....</p>
+    
+    <hr>
+
+    <h2>Formulário de avaliação de periódicos da base SciELO Brasil</h2>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 well">
+            <form action="" class="form-horizontal" method="POST">
+                {{ form.hidden_tag() }}
+                <h2>Critério 1</h2>
+                <h4>Internacionalização do periódico</h4>
+                <p>Seu periódico, {{ journal.title }} possui 100% de artigos em inglês.</p>
+                <p>Na sua opnião isto está </p>
+                <div class="form-group">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="customRadioInline1" name="criterio1a" class="custom-control-input" value="bom">
+                      <label class="custom-control-label" for="customRadioInline1">Bom</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="customRadioInline2" name="criterio1a" class="custom-control-input" value="medio">
+                      <label class="custom-control-label" for="customRadioInline2">Médio</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="customRadioInline3" name="criterio1a" class="custom-control-input" value="ruim">
+                      <label class="custom-control-label" for="customRadioInline2">Ruim</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p>Justifique sua resposta</p>
+                    {{ form.justifica1a(class="form-control") }}
+                </div>
+
+                <input type="submit" value="Enviar" class="btn btn-success pull-left">
+
+            </form>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
