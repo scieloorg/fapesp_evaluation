@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}{{ super() }} - Index{% endblock %}
+
 {% block content %}
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div class="container">
-          <h3 class="display-4">Obrigado!</h3>
-          <p>Obrigado por responder ao questionário.</p>
-          <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
-        </div>
-    </div>
+
+    <div class="card text-center">
+      <div class="card-body">
+        <h3 class="card-title">Obrigado!</h3>
+        <p class="card-text">Obrigado por responder ao questionário</p>
+        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+      <!--   <div class="card-footer text-muted">
+        2 days ago
+      </div> -->
+      </div>
 
 {% endblock %}

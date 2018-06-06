@@ -1,10 +1,11 @@
-from flask import render_template, flash, redirect, url_for
+# coding: utf-8
+import json
+
 from app import app
 from app.models.models import Question
 from app.models.forms import QuestionsForm
-import json
 
-from flask import request
+from flask import render_template, flash, redirect, url_for, request
 
 
 @app.route('/<issn>', methods=('GET', 'POST'))
@@ -13,7 +14,7 @@ def issn(issn):
     journal = Question.objects.get_or_404(issn=issn)
 
     form = QuestionsForm(**json.loads(journal.to_json()))
-
+                            # ** um dict de journal
     if form.validate_on_submit():
 
         form.populate_obj(journal)
@@ -27,7 +28,7 @@ def issn(issn):
                 justifica1b=form.data['justifica1b'],
                 justifica1c=form.data['justifica1c']
                 )
-
+                # **form.data
         mdata = json.loads(question.to_json())
         journal.update(**mdata)
 
@@ -37,12 +38,8 @@ def issn(issn):
     elif form.errors:
         flash(u'Temos algum erro no formulario.', 'error')
 
-    journal = Question.objects.get_or_404(issn=issn)
-    context = {
-        'form': form,
-        'journal': journal,
-    }
-    print(form.errors)
+    context = {'form': form, 'journal': journal}
+
     return render_template("form.html", **context)
 
 
@@ -51,7 +48,7 @@ def thanks():
     return render_template('thanks.html')
 
 
-@app.route("/index/", methods=["GET", "POST"])
+@app.route("/index/")
 @app.route("/")
 def index():
     return render_template('index.html')
