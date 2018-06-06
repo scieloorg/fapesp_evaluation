@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="starter-template">
+  <div class="container">
+    <h2 class="display-5">Fapesp</h2>
+    <p class="lead">Em virtude dos 20 anos do projeto SciELO a Fapesp estará elaborando uma avaliação....</p>
+    
+    <hr>
+
+    <h2>Formulário de avaliação de periódicos da base SciELO Brasil</h2>
+       
+    <form action="" class="form-horizontal" method="POST">
+        {{ form.hidden_tag() }}
+
+        {{ form.body() }}
+        <br>
+        {{ form.author() }}
+        <br>
+        {{ form.escolha() }}
+
+        <br>
+        <input type="submit" value="Enviar" class="btn btn-success pull-left">
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
