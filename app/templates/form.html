@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="starter-template">
+  <div class="container">
+
+    <div class="card">
+    <h2 class="card-header">FAPESP - Avaliação de Periódicos</h2>
+    <div class="card-body">
+      <h5 class="card-title">Avaliação dos periódicos da base SciELO Brasil</h5>
+      <p class="card-text">Em virtude dos 20 anos do projeto SciELO a FAPESP estará elaborando uma avaliação....</p>
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+  </div>
+
+<!-- Lista de erros -->
+    {% if form.errors %}
+      <div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span></button>
+      <p><b>Atenção:</b> verifique o preenchimento dos campos abaixo:</p>
+        {% for field, errors in form.errors.items() %}
+            {% for error in errors %}
+              <span style="color: red;">{{ field }} - {{ error }} <br> </span>
+
+            {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+<!-- FORMULARIO -->
+    <h3>Formulário de avaliação de periódicos da base SciELO Brasil</h3>
+        {{ journal.title }}
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-3">
+            <form action="" class="form-horizontal" method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.csrf }}
+
+                <h3>Critério 1 - Qualidade do corpo editorial e de revisores</h3>
+<!-- criterio 1A -->
+                <p class="lead">a - Editor-chefe ou editores-chefes são pesquisadores com reconhecimento internacional na área do periódico.
+                <p>O periódico atende ao critério 1.a</p>
+                {% for error in form.errors.criterio1a %}
+                  <span style="color: red;"> {{error}} </span>
+                {% endfor %}
+                <div class="form-group">
+                    <div class="radio-inline">
+                    {{ form.criterio1a }}
+                    </div>
+                </div>
+<!-- criterio 1B -->
+                <p class="lead">b - Os demais editores (associados, de seção etc.) do Corpo Editorial são pesquisadores com reconhecimento internacional na área do periódico.
+
+                <p>O periódico atende ao critério 1.b</p>
+                {% for error in form.errors.criterio1b %}
+                  <span style="color: red;"> {{error}} </span>
+                {% endfor %}
+                <div class="form-group">
+                    <div class="radio">
+                    {{ form.criterio1b }}
+                    </div>
+                </div>
+<!-- criterio 1C -->
+                <p class="lead">c - O Corpo Editorial inclui entre os demais editores (associados, de seção etc.)  pesquisadores de prestígio do exterior.
+
+                <p>O periódico atende ao critério 1.c</p>
+                {% for error in form.errors.criterio1c %}
+                  <span style="color: red;"> {{error}} </span>
+                {% endfor %}
+                <div class="form-group">                  
+                    <div class="radio">
+                    {{ form.criterio1c}}
+                    </div>
+                </div>
+<!-- justificativas 1 -->
+                <p class="lead">Por favor, justifique  as escolhas acima:</p>
+
+                <p>Justificativa para 1a</p>
+                {% for error in form.errors.justifica1a %}
+                  <span style="color: red;"> {{error}} </span>
+                {% endfor %}
+                <div class="form-group" rows="3">
+                    {{ form.justifica1a(class="form-control") }}
+                </div>
+
+
+                <p>Justificativa para 1b</p>
+                <div class="form-group" rows="3">
+                    {{ form.justifica1b(class="form-control") }}
+                </div>
+
+                <p>Justificativa para 1c</p>
+                <div class="form-group" rows="3">
+                    {{ form.justifica1c(class="form-control") }}
+                </div>
+ 
+                <input type="submit" value="Enviar" class="btn btn-success pull-left">
+                
+            </form>
+        </div>
+    </div>
+
+  </div>
+</div>
+<br>
+{% endblock %}

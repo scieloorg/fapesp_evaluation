@@ -1,5 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, RadioField
+from wtforms import StringField, TextAreaField, RadioField, validators
+
+choicelist1 = [
+    ('muito', 'Muito'),
+    ('bastante', 'Bastante'),
+    ('razoavel', 'Razoavelmente'),
+    ('pouco', 'Pouco'),
+    ('nada', 'Nada')
+        ]
 
 
 class PostForm(FlaskForm):
@@ -8,10 +16,21 @@ class PostForm(FlaskForm):
 
 
 class QuestionsForm(FlaskForm):
-    criterio1a = StringField()
-    criterio1b = StringField()
-    criterio1c = StringField()
-    justifica1a = TextAreaField()
+    criterio1a = RadioField(
+        '',
+        choices=choicelist1,
+        validators=[validators.InputRequired(message='* Campo obrigatório.')])
+    criterio1b = RadioField(
+        '',
+        choices=choicelist1,
+        validators=[validators.InputRequired(message='* Campo obrigatório.')])
+    criterio1c = RadioField(
+        '',
+        choices=choicelist1,
+        validators=[validators.InputRequired(message='* Campo obrigatório.')])
+    justifica1a = TextAreaField(
+        '',
+        validators=[validators.InputRequired(message='* Campo obrigatório.')])
+
     justifica1b = TextAreaField()
     justifica1c = TextAreaField()
-    example = RadioField(choices=[('value1', 'Bom'), ('value2', 'Médio')])
