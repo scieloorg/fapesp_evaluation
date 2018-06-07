@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+    fapesp_mongo:
+        image: mongo:latest
+        restart: always
+        user: mongodb
+        hostname: fapesp-mongo
+        ports:
+          - "27018:27017"
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+
+    fapesp_app:
+        image: fapesp_evaluation
+        user: nobody
+        restart: always
+        hostname: fapesp_app
+        depends_on:
+            - fapesp_mongo
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+        links:
+            - fapesp_mongo:fapesp-mongo
+        ports:
+            - "8000:8000"
+        environment:
+            - FAPESP_DEBUG_MODE=True
+            - FAPESP_SECRET_KEY=s3kr3tk3y
+            - FAPESP_MONGODB_NAME=fapesp_evaluation
+            - FAPESP_MONGODB_HOST=fapesp-mongo
+            - FAPESP_MONGODB_PORT=27017
