@@ -1,6 +1,6 @@
 # coding: utf-8
 import json
-
+import datetime
 from app import app
 from app.models.models import Question
 from app.models.forms import QuestionsForm
@@ -14,25 +14,19 @@ def issn(issn):
     journal = Question.objects.get_or_404(issn=issn)
 
     form = QuestionsForm(**json.loads(journal.to_json()))
-                            # ** um dict de journal
+
     if form.validate_on_submit():
 
         form.populate_obj(journal)
 
         if request.method == "POST" and form.validate():
-            question = Question(
-                criterio1a=form.data['criterio1a'],
-                criterio1b=form.data['criterio1b'],
-                criterio1c=form.data['criterio1c'],
-                justifica1a=form.data['justifica1a'],
-                justifica1b=form.data['justifica1b'],
-                justifica1c=form.data['justifica1c']
-                )
-                # **form.data
-        mdata = json.loads(question.to_json())
-        journal.update(**mdata)
 
-        flash(u'form salvo com sucesso!', 'success')
+            result = request.form.to_dict()
+            result['update_date'] = datetime.datetime.now()
+            result['accessed'] = 1
+
+        journal.update(**result)
+
         return redirect(url_for('thanks'))
 
     elif form.errors:
